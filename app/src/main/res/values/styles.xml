@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="Playtime" parent="@android:style/Theme.Material">
+    </style>
+
+    <style name="Playtime.Fullscreen" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+    </style>
+
+</resources>

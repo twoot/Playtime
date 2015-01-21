@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Playtime</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="soundcloud_client_id">b20dedd5ca756968bc0caa1a2c46a873</string>
+    <string name="parse_client_key">OKNrUd8OL0grjVimZo3ZTLB3D1aiwWTjAxVTLvgE</string>
+    <string name="parse_app_id">gdONNFM1tRi6EtjnkjStd2QBHdoAt04lB9vfIrgi</string>
+    <string name="fb_app_id">616237708480687</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">Register/Sign In</string>
+    <string name="passwords_dont_match">Passwords don\'t match!</string>
+    <string name="incorrect_credentials">Please enter correct credentials.</string>
+
+
+
+
+
+
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+
+</resources>

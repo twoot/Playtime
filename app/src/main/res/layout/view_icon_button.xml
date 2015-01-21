@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_height="match_parent"
+        android:layout_weight=".1"
+        android:layout_width="0dp"
+        android:layout_margin="@dimen/default_margin"
+        android:scaleType="fitCenter"
+        android:gravity="center"
+        android:src="@drawable/ic_action_play" />
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="fill_parent"
+        android:background="@color/gray" />
+
+    <TextView
+        android:id="@+id/button_text"
+        android:layout_width="0dp"
+        android:layout_weight=".7"
+        android:gravity="center"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_height="match_parent"
+        android:text="ICON_BUTTON" />
+
+</merge>
