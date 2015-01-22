@@ -5,6 +5,8 @@
     <color name="orange">#FF9933</color>
     <color name="black">#000000</color>
     <color name="gray">#989898</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00</color>
     <color name="carousel_text_color">@color/black</color>
     <color name="button_normal">@color/white</color>
     <color name="button_pressed">@color/white</color>

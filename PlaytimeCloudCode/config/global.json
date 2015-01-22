@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Playtime": {
+            "applicationId": "gdONNFM1tRi6EtjnkjStd2QBHdoAt04lB9vfIrgi", 
+            "masterKey": "bakvzq1EQK4bFcxCaGuPLIpHTU4w8moQuWdqOBT4"
+        }, 
+        "_default": {
+            "link": "Playtime"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.3"
+    }
+}
