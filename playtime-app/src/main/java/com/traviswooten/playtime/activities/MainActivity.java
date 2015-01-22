@@ -28,6 +28,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.traviswooten.playtime.R;
+import com.traviswooten.playtime.constants.Constants;
 import com.traviswooten.playtime.models.PlayPrepared;
 import com.traviswooten.playtime.models.PlayRequest;
 import com.traviswooten.playtime.models.StartPlay;
@@ -47,6 +48,7 @@ public class MainActivity extends Activity {
      */
     private boolean playPause;
     private MediaPlayer mediaPlayer;
+    private boolean isPreparing = false;
     private boolean isPrepared = false;
     private boolean isRequester = false;
     private String requestId;
@@ -86,7 +88,7 @@ public class MainActivity extends Activity {
                     @Override
                     public void done(List<ParseObject> parseObjects, ParseException e) {
                         ParseObject playPrepared = parseObjects.get(0);
-                        if(isRequester) {
+                        if (isRequester) {
                             playPrepared.put(PlayPrepared.REQUESTER_PREPARED, true);
                         } else {
                             playPrepared.put(PlayPrepared.RECEIVER_PREPARED, true);
@@ -135,6 +137,7 @@ public class MainActivity extends Activity {
     }
 
     public void handlePressHold() {
+        btn.setBackgroundColor(getResources().getColor(R.color.yellow));
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(StartPlay.START_PLAY);
         query.whereEqualTo(StartPlay.REQUEST_ID, requestId);
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -153,20 +156,23 @@ public class MainActivity extends Activity {
     }
 
     public void handlePressRelease() {
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(StartPlay.START_PLAY);
-        query.whereEqualTo(StartPlay.REQUEST_ID, requestId);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> parseObjects, ParseException e) {
-                ParseObject startPlay = parseObjects.get(0);
-                if(isRequester) {
-                    startPlay.put(StartPlay.REQUESTER_PUSHED, false);
-                } else {
-                    startPlay.put(StartPlay.RECEIVER_PUSHED, false);
+        if(!isPreparing) {
+            btn.setBackgroundColor(getResources().getColor(R.color.orange));
+            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(StartPlay.START_PLAY);
+            query.whereEqualTo(StartPlay.REQUEST_ID, requestId);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> parseObjects, ParseException e) {
+                    ParseObject startPlay = parseObjects.get(0);
+                    if (isRequester) {
+                        startPlay.put(StartPlay.REQUESTER_PUSHED, false);
+                    } else {
+                        startPlay.put(StartPlay.RECEIVER_PUSHED, false);
+                    }
+                    startPlay.saveInBackground();
                 }
-                startPlay.saveInBackground();
-            }
-        });
+            });
+        }
 
     }
 
@@ -207,6 +213,7 @@ public class MainActivity extends Activity {
 
     private void handleSoundPrepare(String url){
         try {
+            isPreparing = true;
             btn.setBackgroundColor(getResources().getColor(R.color.blue));
             mediaPlayer.reset();
             mediaPlayer.setDataSource(url);
@@ -234,9 +241,9 @@ public class MainActivity extends Activity {
         super.onResume();
 
         // Register mMessageReceiver to receive messages.
-        LocalBroadcastManager.getInstance(this).registerReceiver(playRequestAcceptedReceiver, new IntentFilter("play-request-accepted"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(startPlayReceiver, new IntentFilter("start-play"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(playPreparedReceiver, new IntentFilter("play-prepared"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(playRequestAcceptedReceiver, new IntentFilter(Constants.PLAY_REQUEST_ACCEPTED));
+        LocalBroadcastManager.getInstance(this).registerReceiver(startPlayReceiver, new IntentFilter(Constants.START_PLAY));
+        LocalBroadcastManager.getInstance(this).registerReceiver(playPreparedReceiver, new IntentFilter(Constants.PLAY_PREPARED));
     }
 
     // handler for received Intents for the "my-event" event
@@ -251,7 +258,6 @@ public class MainActivity extends Activity {
     private BroadcastReceiver startPlayReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            btn.setBackgroundColor(getResources().getColor(R.color.yellow));
             handleSoundPrepare(intent.getStringExtra("url"));
         }
     };

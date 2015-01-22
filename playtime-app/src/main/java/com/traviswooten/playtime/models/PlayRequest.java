@@ -9,11 +9,11 @@ import com.parse.ParseUser;
  */
 public class PlayRequest {
 
-    private String PLAY_REQUEST = "PlayRequest";
+    public static String PLAY_REQUEST = "PlayRequest";
     private String REQUEST_USER = "requestUser";
     private String RECEIVE_USER = "receiveUser";
     private String URL = "url";
-    private String ACCEPTED = "accepted";
+    public static String ACCEPTED = "accepted";
 
 
     private String requestUser, receiveUser;

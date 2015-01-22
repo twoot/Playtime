@@ -9,7 +9,7 @@ Parse.Cloud.define("sendPlaytimeRequest", function(request, response) {
   Parse.Push.send({
     where: queryUser,
     data: {
-      action: "play-request",
+      action: "com.traviswooten.playtime.play.request",
       requestId: request.params.requestId,
       message: requestMessage.concat(request.params.requestUsername)
     }
@@ -36,7 +36,7 @@ Parse.Cloud.afterSave("PlayRequest", function(request) {
         Parse.Push.send({
             where: queryUsers,
             data: {
-              action: "play-request-accepted",
+              action: "com.traviswooten.playtime.play.request.accepted",
               requestId: request.object.id
             }
           }, {
@@ -69,7 +69,7 @@ Parse.Cloud.afterSave("StartPlay", function(request) {
             Parse.Push.send({
                 where: queryUsers,
                 data: {
-                  action: "start-play",
+                  action: "com.traviswooten.playtime.start.play",
                   requestId: request.object.get("requestId"),
                   url: results[0].get("url")
                 }
@@ -109,7 +109,7 @@ Parse.Cloud.afterSave("PlayPrepared", function(request) {
             Parse.Push.send({
                 where: queryUsers,
                 data: {
-                  action: "play-prepared",
+                  action: "com.traviswooten.playtime.play.prepared",
                   requestId: request.object.get("requestId")
                 }
               }, {
